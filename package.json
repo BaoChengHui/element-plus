@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Baochh/element-plus/issues"
   },
-  "homepage": "https://github.com/Baochh/element-plus#readme"
+  "homepage": "https://github.com/Baochh/element-plus#readme",
+  "devDependencies": {
+    "@vue/tsconfig": "^0.4.0"
+  }
 }
