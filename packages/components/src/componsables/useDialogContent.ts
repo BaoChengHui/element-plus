@@ -8,5 +8,5 @@ export interface UseDialogContent{
 export function useDialogContent(options:UseDialogContent) {
    
   const instance = getCurrentInstance()!
-   Object.assign(instance,options)
+   Object.assign(instance.exposed as object,options)
 }

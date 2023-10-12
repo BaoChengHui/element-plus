@@ -14,6 +14,7 @@ const handlerClick = ()=>{
   showDialog({
     title:"1111"
   }, <DemoCom name='111111'/>).then(res=>{
+    console.log("res",res);
     
   })
 }

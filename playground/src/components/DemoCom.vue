@@ -16,16 +16,6 @@ useDialogContent({
         }
     },
 })
-
-// defineExpose({
-//     async onConfirm() {
-//         return {
-//             name:"111",
-//             data:234
-//         }
-//     },
-// })
-
 </script>
 <template>
     {{ name }}
