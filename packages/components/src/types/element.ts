@@ -1,8 +1,9 @@
-import type { ElCol, ElDatePicker, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElPagination, ElSelect, ElSwitch, ElTable } from 'element-plus'
+import type { ElCol, ElDatePicker, ElDialog, ElForm, ElFormItem, ElInput, ElInputNumber, ElPagination, ElSelect, ElSelectV2, ElSwitch, ElTable } from 'element-plus'
 import type { PickComponentProps } from './vue'
 
 export type ElInputProps = PickComponentProps<typeof ElInput>
 export type ElSelectProps = PickComponentProps<typeof ElSelect>
+export type ElSelectV2Props = PickComponentProps<typeof ElSelectV2>
 export type ElSwitchProps = PickComponentProps<typeof ElSwitch>
 export type ElInputNumberProps = PickComponentProps<typeof ElInputNumber>
 export type ElFormItemProps = PickComponentProps<typeof ElFormItem>
