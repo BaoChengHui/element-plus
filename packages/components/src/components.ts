@@ -1,4 +1,5 @@
 import type { Plugin } from 'vue'
 import { OpDialog } from './dialog'
+import { OpSelect } from './select'
 
-export default [OpDialog] as Plugin[]
+export default [OpDialog,OpSelect] as Plugin[]

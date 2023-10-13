@@ -8,7 +8,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["element-plus/global"],
+    "types": ["element-plus/global","unplugin-vue-macros/macros-global"],
     "moduleResolution": "node"
   }
 }

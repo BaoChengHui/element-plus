@@ -1,35 +1,40 @@
 <script setup lang="tsx">
-import  { ElButton, type DialogBeforeCloseFn, ElMessageBox } from 'element-plus';
+import  { ElButton, type DialogBeforeCloseFn, ElMessageBox,ElSelectV2,ElSelect, ElOptionGroup,ElOption } from 'element-plus';
 import { ref } from 'vue';
 import {showDialog  } from "op-components";
 import DemoCom from "./components/DemoCom.vue";
+const initials = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+const options = Array.from({ length: 10 }).map((_, idx) => {
+  const label = idx + 1
+  return {
+    value: `Group ${label}`,
+    label: `Group ${label}`,
+    options: Array.from({ length: 10 }).map((_, idx) => ({
+      value: `Option ${idx + 1 + 10 * label}`,
+      label: `${initials[idx % 10]}${idx + 1 + 10 * label}`,
+    })),
+  }
+})
 
-const visible = ref(false)
-
-const handlerCancel = ()=>{
-  console.log("1111");
-}
-
-const handlerClick = ()=>{
-  showDialog({
-    title:"1111"
-  }, <DemoCom name='111111'/>).then(res=>{
-    console.log("res",res);
-    
-  })
-}
-
+const value = ref()
+const count = ref(1)
 </script>
 
 <template>
-  <div >
-    <ElButton @click="handlerClick">打开</ElButton>
-    <OpDialog v-model="visible" @calcel="handlerCancel" title="这是标题">
-    <div>1111</div>
-    </OpDialog>
+  <div class="app" >
+    <OpSelect v-model="value" :options="options" clearable >
+      <template #default="{ item }">
+        {{ item.label }}222
+      </template>
+      <template #prefix>111</template>
+    </OpSelect>
+    <div>
+    </div>
   </div>
 </template>
 
-<style scoped>
-
+<style >
+.app{
+  padding: 16px;
+}
 </style>
