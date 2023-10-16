@@ -8,15 +8,11 @@ import { isArray } from "../../utils";
 import { ref } from "vue";
 import { useAttrs } from "vue";
 import { watchEffect } from "vue";
-import { useSlots } from "vue";
 
 defineOptions({
   name: "OpSelect",
   inheritAttrs: false,
 });
-
-
-
 
 const props = withDefaults(
   defineProps<{
@@ -33,10 +29,10 @@ const props = withDefaults(
 );
 
 const slots = defineSlots<{
-  default(props: { item: Option }): any  
-  prefix:any
-  empty:any
-}>()
+  default(props: { item: Option }): any;
+  prefix: any;
+  empty: any;
+}>();
 
 const localValue = ref();
 const attrs = useAttrs();
@@ -63,15 +59,17 @@ const renderSelectV2 = () => {
 };
 
 const renderOption = (option: Option) => {
-  return <ElOption label={option.label} value={option.value} >
-    {slots.default?.({item:option})}
-  </ElOption>;
+  return (
+    <ElOption label={option.label} value={option.value}>
+      {slots.default?.({ item: option })}
+    </ElOption>
+  );
 };
 
 const selectSlots = {
-  prefix:slots.prefix,
-  empty:slots.empty
-}
+  prefix: slots.prefix,
+  empty: slots.empty,
+};
 
 const renderSelect = () => {
   return (
