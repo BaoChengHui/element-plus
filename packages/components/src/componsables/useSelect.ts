@@ -17,7 +17,7 @@ export interface UseSelectOptions<Data, Params extends any[] = []> {
     Omit<OpSelectProps, "options" | "loading" | "remote" | "remoteMethod">
   >;
   fetch?: (...args: Params) => Promise<Data[]>;
-  data?: MaybeRefOrGetter<any[]>;
+  data?: MaybeRefOrGetter<Data[]>;
   /**
    * @default true
    */
@@ -25,11 +25,11 @@ export interface UseSelectOptions<Data, Params extends any[] = []> {
   /**
    * @default 'label'
    */
-  labelKey?: string;
+  labelKey?:string
   /**
    * @default 'value'
    */
-  valueKey?: string;
+  valueKey?:string;
   formatter?: (data: Data[]) => Option[];
   /**
    * @default false
@@ -64,7 +64,8 @@ export function useSelect<Data, Params extends [object?, ...any[]] = any[]>(
     immediate = true,
     remote = false,
     queryKeyword = "keyword",
-    ms = 300
+    ms = 300,
+    data
   } = options;
   const list = ref<Option[]>([]);
   const remoteData = ref<Data[]>([]);
@@ -111,15 +112,29 @@ export function useSelect<Data, Params extends [object?, ...any[]] = any[]>(
   const selectProps = computed<OpSelectProps>(() => {
     const base = remote?{
       remote,
-      remoteMethod
+      remoteMethod,
+      filterable:true
     }:{}
 
     return {
       options: list.value,
+      loading:loading.value,
       ...base,
       ...toValue(props),
     };
   });
+
+  if(data){
+    watch(()=>toValue(data),(val)=>{
+      if(val){
+        list.value = formatterData(val)
+      }
+    },{immediate:true})
+  }
+
+  
+
+
 
   if (immediate) {
     fetchData();

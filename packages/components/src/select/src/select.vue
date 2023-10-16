@@ -74,6 +74,7 @@ const selectSlots = {
 const renderSelect = () => {
   return (
     <ElSelect
+      {...attrs}
       modelValue={localValue.value}
       onUpdate:modelValue={updateModelValue}
       v-slots={selectSlots}
