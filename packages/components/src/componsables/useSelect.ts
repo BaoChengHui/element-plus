@@ -25,11 +25,11 @@ export interface UseSelectOptions<Data, Params extends any[] = []> {
   /**
    * @default 'label'
    */
-  labelKey?:string
+  labelKey?: string;
   /**
    * @default 'value'
    */
-  valueKey?:string;
+  valueKey?: string;
   formatter?: (data: Data[]) => Option[];
   /**
    * @default false
@@ -40,9 +40,10 @@ export interface UseSelectOptions<Data, Params extends any[] = []> {
    */
   queryKeyword?: string;
   /**
+   * 搜索关键词正在输入时的防抖延迟，单位为毫秒
    * @default 300
    */
-  ms?:MaybeRefOrGetter<number>
+  debounce?: MaybeRefOrGetter<number>;
 }
 
 export interface UseSelectReturn<Data, Params extends any[] = []> {
@@ -64,8 +65,8 @@ export function useSelect<Data, Params extends [object?, ...any[]] = any[]>(
     immediate = true,
     remote = false,
     queryKeyword = "keyword",
-    ms = 300,
-    data
+    debounce = 300,
+    data,
   } = options;
   const list = ref<Option[]>([]);
   const remoteData = ref<Data[]>([]);
@@ -101,40 +102,42 @@ export function useSelect<Data, Params extends [object?, ...any[]] = any[]>(
   const remoteMethod = useDebounceFn((val: string) => {
     if (val) {
       fetchData({
-        [queryKeyword]:val
+        [queryKeyword]: val,
       });
     } else {
       list.value = [];
       remoteData.value = [];
     }
-  },ms);
+  }, debounce);
 
   const selectProps = computed<OpSelectProps>(() => {
-    const base = remote?{
-      remote,
-      remoteMethod,
-      filterable:true
-    }:{}
+    const base = remote
+      ? {
+          remote,
+          remoteMethod,
+          filterable: true,
+        }
+      : {};
 
     return {
       options: list.value,
-      loading:loading.value,
+      loading: loading.value,
       ...base,
       ...toValue(props),
     };
   });
 
-  if(data){
-    watch(()=>toValue(data),(val)=>{
-      if(val){
-        list.value = formatterData(val)
-      }
-    },{immediate:true})
+  if (data) {
+    watch(
+      () => toValue(data),
+      (val) => {
+        if (val) {
+          list.value = formatterData(val);
+        }
+      },
+      { immediate: true }
+    );
   }
-
-  
-
-
 
   if (immediate) {
     fetchData();
@@ -146,4 +149,3 @@ export function useSelect<Data, Params extends [object?, ...any[]] = any[]>(
     fetchData,
   };
 }
-

@@ -1,40 +1,55 @@
 <script setup lang="tsx">
-import  { ElButton, type DialogBeforeCloseFn, ElMessageBox,ElSelectV2,ElSelect, ElOptionGroup,ElOption } from 'element-plus';
-import { ref } from 'vue';
-import {showDialog  } from "op-components";
+import {
+  ElButton,
+  type DialogBeforeCloseFn,
+  ElMessageBox,
+  ElSelectV2,
+  ElSelect,
+  ElOptionGroup,
+  ElOption,
+} from "element-plus";
+import { ref } from "vue";
+import { showDialog, useSelect } from "op-components";
 import DemoCom from "./components/DemoCom.vue";
-const initials = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
-const options = Array.from({ length: 10 }).map((_, idx) => {
-  const label = idx + 1
-  return {
-    value: `Group ${label}`,
-    label: `Group ${label}`,
-    options: Array.from({ length: 10 }).map((_, idx) => ({
-      value: `Option ${idx + 1 + 10 * label}`,
-      label: `${initials[idx % 10]}${idx + 1 + 10 * label}`,
-    })),
-  }
-})
 
-const value = ref()
-const count = ref(1)
+const options: { label3: string; value: string }[] = [
+  { label3: "label1", value: "1" },
+  { label3: "label2", value: "2" },
+  { label3: "label3", value: "3" },
+  { label3: "label4", value: "4" },
+  { label3: "label5", value: "5" },
+  { label3: "label6", value: "6" },
+  { label3: "label16", value: "16" },
+];
+const fetchList = (data: { keyword: string }): Promise<typeof options> => {
+  return new Promise((resolve, reject) => {
+    const { keyword = "" } = data ?? {};
+    setTimeout(() => {
+      resolve(
+        options.filter((item) => item.label3.includes(keyword) || !keyword)
+      );
+    }, 1000);
+  });
+};
+
+const { selectProps } = useSelect({
+  props: {
+    clearable: true,
+    filterable: true,
+  },
+});
+const value = ref();
 </script>
 
 <template>
-  <div class="app" >
-    <OpSelect v-model="value" :options="options" clearable >
-      <template #default="{ item }">
-        {{ item.label }}222
-      </template>
-      <template #prefix>111</template>
-    </OpSelect>
-    <div>
-    </div>
+  <div class="app">
+    <OpSelect v-model="value" v-bind="selectProps"> </OpSelect>
+    <div></div>
   </div>
 </template>
 
-<style >
-.app{
+<style>
+.app {
   padding: 16px;
 }
 </style>
