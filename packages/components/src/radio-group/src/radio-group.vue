@@ -1,15 +1,14 @@
 <script lang="tsx" setup>
-import { ElCheckbox, ElCheckboxButton, ElCheckboxGroup } from "element-plus";
-import type { CheckboxGroupOption } from "./checkbox-group.type";
-import { computed } from "vue";
-import { h } from "vue";
+import { ElRadio, ElRadioButton, ElRadioGroup } from "element-plus";
+import type { RadioGroupOption } from "./radio-group.type";
+import { computed, h } from "vue";
 defineOptions({
-  name: "OpCheckboxGroup",
+  name: "OpRadioGroup",
 });
 
 const props = withDefaults(
   defineProps<{
-    options?: CheckboxGroupOption[];
+    options?: RadioGroupOption[];
     type?: "default" | "button";
   }>(),
   {
@@ -18,16 +17,16 @@ const props = withDefaults(
   }
 );
 
-const CheckboxItem = computed(() =>
-  props.type === "button" ? ElCheckboxButton : ElCheckbox
+const RadioItem = computed(() =>
+  props.type === "button" ? ElRadioButton : ElRadio
 );
 
 const slots = defineSlots<{
-  default(props: { item: CheckboxGroupOption }): any;
+  default(props: { item: RadioGroupOption }): any;
 }>();
 
 defineRender(
-  <ElCheckboxGroup>
+  <ElRadioGroup>
     {props.options.map((item) => {
       const { value, label, ...others } = item;
       const config = {
@@ -35,11 +34,11 @@ defineRender(
         label: value ?? label,
       };
       return h(
-        CheckboxItem.value,
+        RadioItem.value,
         { ...config },
         { default: slots.default ? slots.default({ item }) : () => item.label }
       );
     })}
-  </ElCheckboxGroup>
+  </ElRadioGroup>
 );
 </script>

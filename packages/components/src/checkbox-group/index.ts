@@ -8,7 +8,7 @@ const OpCheckboxGroup = withInstall(checkboxGroup)
 export {
     OpCheckboxGroup
 }
-
+export * from "./src/checkbox-group.type"
 
 
 declare module 'vue' {

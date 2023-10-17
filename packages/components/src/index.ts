@@ -5,5 +5,6 @@ export * from "./types"
 export * from "./dialog"
 export * from "./select"
 export * from "./checkbox-group"
+export * from "./radio-group"
 
 export default install
