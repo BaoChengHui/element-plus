@@ -7,11 +7,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vueuse/core":"^10.5.0"
+    "@vueuse/core":"^10.5.0",
+    "lodash-es":"^4.17.21"
   },
   "devDependencies":{
     "vue":"^3.3.4",
     "element-plus":"^2.3.14",
-    "unplugin-vue-macros":"^2.6.1"
+    "unplugin-vue-macros":"^2.6.1",
+    "@types/lodash-es":"^4.17.10"
   }
 }
